@@ -6,6 +6,7 @@ import { prisma } from "./lib/prisma.js"; // Use shared client
 import protectedRoutes from './routes/protected.js';
 import projectRoutes from "./routes/projectRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 
 config();
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use('/api/protected', protectedRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api", commentRoutes);
+app.use("/api", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ API is running");
