@@ -98,3 +98,26 @@ export const deleteProject = async (req, res) => {
     res.status(500).json({ error: "Failed to delete project" });
   }
 };
+export const getUserProjectsWithComments = async (req, res) => {
+  const userId = Number(req.params.id || req.user.id); // fallback to logged-in user
+
+  try {
+    const projects = await prisma.project.findMany({
+      where: { userId },
+      include: {
+        comments: {
+          include: {
+            user: {
+              select: { id: true, name: true },
+            },
+          },
+        },
+      },
+    });
+
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error("❌ Error fetching user's projects with comments:", error);
+    res.status(500).json({ error: "Failed to fetch user's projects" });
+  }
+};
