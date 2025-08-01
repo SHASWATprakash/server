@@ -19,7 +19,16 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middlewares
-app.use(cors());
+
+
+const allowedOrigins = [process.env.CORS_ORIGIN]; // or wherever your frontend runs
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // if you're sending cookies or Authorization headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Routes

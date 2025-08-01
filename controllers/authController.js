@@ -21,12 +21,12 @@ export async function signup(req, res) {
     }
 
     // Hash password
-    const hashedPassword = await hash(password, 10);
-    console.log("Password hashed");
+    // const hashedPassword = await hash(password, 10);
+    // console.log("Password hashed");
 
     // Create user
     const user = await prisma.user.create({
-      data: { name, email, password: hashedPassword },
+      data: { name, email, password: password },
     });
     console.log("User created in DB:", user);
 
